@@ -1,2 +1,0 @@
-Reading config.properties
-Close the browser

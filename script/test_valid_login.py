@@ -2,12 +2,14 @@ from generic.base_file import BaseTest
 from page.login_page import LoginPage
 from page.home_page import HomePage
 from generic.utility import Excel
+import pytest
 
 class Test_ValidLogin(BaseTest):
 
+    @pytest.mark.run(order=1)
     def test_valid_login(self):
-        un=Excel.get_data('./../data/input.xlsx','ValidLogin',2,1)
-        pw=Excel.get_data('./../data/input.xlsx','ValidLogin',2,2)
+        un=Excel.get_data( self.xl_path,'ValidLogin',2,1)
+        pw=Excel.get_data( self.xl_path,'ValidLogin',2,2)
         # 1. enter valid username
         login_page = LoginPage(self.driver)
         login_page.enter_username(un)

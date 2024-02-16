@@ -6,14 +6,22 @@ from selenium.webdriver.support.wait import WebDriverWait
 from pyjavaproperties import Properties
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import os
 
 class BaseTest:
 
     @pytest.fixture(autouse=True)
     def pre_condition(self):
+        generic_folder=os.path.dirname(__file__)
+        print('Generic Path:',generic_folder)
+        self.config_path=generic_folder+'/../config.properties'
+        print('Config Path',self.config_path)
+        self.xl_path=generic_folder+'/../data/input.xlsx'
+        print('XL Path', self.xl_path)
+
         print('Reading config.properties')
         p = Properties()
-        p.load(open('../config.properties'))
+        p.load(open(self.config_path))
         grid=p['GRID']
         grid_url=p['GRID_URL']
         browser=p['BROWSER']
