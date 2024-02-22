@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium.webdriver import Chrome
 from selenium.webdriver import Firefox
@@ -6,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from pyjavaproperties import Properties
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+
 import os
 
 class BaseTest:
@@ -58,7 +60,15 @@ class BaseTest:
         self.driver.maximize_window()
 
     @pytest.fixture(autouse=True)
-    def post_condtion(self):
+    def post_condtion(self,request):
         yield
+        test_name = request.node.name
+        test_failed = request.node.session.testsfailed
+        print('Test is:', test_name, 'staus', test_failed)
+        if test_failed:
+            print('OK FAILED')
+            allure.attach(self.driver.get_screenshot_as_png(), name="Screenshot",
+                          attachment_type=allure.attachment_type.PNG)
+
         print('Close the browser')
         self.driver.close()

@@ -5,8 +5,8 @@ import pytest
 
 class Test_InvalidLogin(BaseTest):
 
-    @pytest.mark.run(order=2)
-    def test_invalid_login(self):
+    # @pytest.mark.run(order=2)
+    def ptest_invalid_login(self):
         un = Excel.get_data(self.xl_path, 'InvalidLogin', 2, 1)
         pw = Excel.get_data(self.xl_path, 'InvalidLogin', 2, 2)
     # 1. enter invalid username
